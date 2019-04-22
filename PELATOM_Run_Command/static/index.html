@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Comcast Residential Sanity</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<script src="/static/css/jquery.min.js"></script>
+<script src="/static/css/bootstrap.min.js"></script>
+
+<style>
+ul {
+	text-align: left;
+}
+
+li {
+	display: inline-block;
+	max-width: 100%; /* limit width */
+	word-break: break-all; /* wrap extended text*/
+	border: 1px solid red /* demo */
+}
+</style>
+
+</head>
+
+<body style="background-color: dimgray;">
+	<div class="container text-center"
+		style="border: 5px solid black; margin-top: 5%; background-color: white;">
+		<h2>Flash</h2>
+		<form>
+			<hr />
+			<div class="row">
+				<h3>
+					Enter Commands 	
+					<br><br>
+					<textarea  placeholder="command" id="command" rows="5" style="margin: 0px; height: 227px; width: 1082px;"> </textarea>
+
+			</h3>
+			</div>
+			<div class="row">
+			<button type="submit" class="button" >Submit</button>
+				</div>
+			</form>
+	</div>
+
+
+
+</body>
+<script>
+
+$('.button').click(function () {
+	 var name=document.getElementById('command').value;
+	//e.preventDefault();
+	$.ajax({
+		url: '/run',
+		data: JSON.stringify({"document name": name}),
+		type: 'POST',
+		contentType: "application/json",
+		success: function(data) {
+			$('#command').val('');
+			$('#run').html('string is ' + data['string'])
+		}
+	});
+});
+</script>
+</html>
